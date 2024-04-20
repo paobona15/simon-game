@@ -1,7 +1,9 @@
 var buttons = [];
 var playerButtons = [];
 $("body").keypress(function(event) {
+    
     gamePattern();
+    
     console.log(buttons);
     console.log(event.target);
 }
@@ -12,6 +14,7 @@ function gameStart() {
 function gamePattern() {
     var colorPattern = Math.floor(Math.random()*4)+1;
     buttons.push(colorPattern);
+    $("h1").text("Level " + buttons.length)
     for (var x=1; x<=4; x++) {
     if (colorPattern===x) {
     $(".btn").eq(x-1).animate({opacity: 0.5});
