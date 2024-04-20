@@ -1,0 +1,1 @@
+Simple simon game that utilized DOM in Javascript. One of the courses in Web Development by Dr. Angela Yu
