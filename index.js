@@ -1,54 +1,49 @@
+var buttonColours = ["red", "blue", "green", "yellow"];
 var buttons = [];
 var playerButtons = [];
-$("body").keypress(function(event) {
-    
-    gamePattern();
-    userPattern();
-    
-    console.log(buttons);
-    console.log(event.target);
+var started = false;
+var level = 0;
+
+ $("body").keypress(function(event) {
+    if (!started) {
+        $("#level-title").text("Level " + level);
+        gameStart();
+        started = true;
+    }
 }
 )
-function gameStart() {
 
+function gameStart() {
+    level ++;
+    $("h1").text("Level " + level)
+    gamePattern();
 }
 function gamePattern() {
-    var colorPattern = Math.floor(Math.random()*4)+1;
+    $("h1").text("Level " + level)
+    var randomNumber = Math.floor(Math.random()*4)-1;
+    var colorPattern = buttonColours[randomNumber];
     buttons.push(colorPattern);
-    $("h1").text("Level " + buttons.length)
-    for (var x=1; x<=4; x++) {
-    if (colorPattern===x) {
-    $(".btn").eq(x-1).animate({opacity: 0.5});
-    setTimeout($(".btn").eq(x-1).animate({opacity: 1}), 1000)
-    }
+    animateColor(colorPattern);
+    playSound(colorPattern);
+    
 }
-    switch (colorPattern) {
-        case 1:
-            var audio = new Audio("./sounds/green.mp3");
-            audio.play();
-            break;
-        case 2:
-            var audio = new Audio("./sounds/red.mp3");
-            audio.play();
-            break;
-        case 3:
-            var audio = new Audio("./sounds/yellow.mp3");
-            audio.play();
-            break;
-        case 4:
-            var audio = new Audio("./sounds/blue.mp3");
-            audio.play();
-            break;
-        default:
-            break;
+function animateColor(name) {
+
+    $("#" + name).animate({opacity: 0.5});
+    setTimeout($("#"+ name).animate({opacity: 1}), 1000)
     }
 
-}
-function userPattern() {
-    
-    $(".btn").eq(0).click(function(event) {
-    var audio = new Audio("./sounds/green.mp3")
+
+
+function playSound(name) {
+    var audio = new Audio("sounds/" + name + ".mp3");
     audio.play();
+}
+    
+    $(".btn").click(function() {
+    var userChosenColor = $(this).attr("id")
+    animateColor(userChosenColor);
+    playSound(userChosenColor);
+    
     }
 )
-}
