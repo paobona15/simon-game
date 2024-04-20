@@ -3,6 +3,7 @@ var playerButtons = [];
 $("body").keypress(function(event) {
     
     gamePattern();
+    userPattern();
     
     console.log(buttons);
     console.log(event.target);
@@ -20,6 +21,7 @@ function gamePattern() {
     $(".btn").eq(x-1).animate({opacity: 0.5});
     setTimeout($(".btn").eq(x-1).animate({opacity: 1}), 1000)
     }
+}
     switch (colorPattern) {
         case 1:
             var audio = new Audio("./sounds/green.mp3");
@@ -40,5 +42,13 @@ function gamePattern() {
         default:
             break;
     }
+
 }
+function userPattern() {
+    
+    $(".btn").eq(0).click(function(event) {
+    var audio = new Audio("./sounds/green.mp3")
+    audio.play();
+    }
+)
 }
